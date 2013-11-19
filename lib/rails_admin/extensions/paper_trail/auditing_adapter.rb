@@ -37,7 +37,6 @@ module RailsAdmin
           :created_at => :created_at,
           :message => :event
         }
-        VERSION = defined?(::PaperTrail::Version) ? ::PaperTrail::Version : ::Version
 
         def initialize(controller, user_class = User)
           raise "PaperTrail not found" unless defined?(PaperTrail)
@@ -46,7 +45,8 @@ module RailsAdmin
         end
 
         def latest
-          VERSION.order('id DESC').limit(100).map{|version| VersionProxy.new(version, @user_class)}
+          version_klass = defined?(::PaperTrail::Version) ? ::PaperTrail::Version : ::Version
+          version_klass.order('id DESC').limit(100).map{|version| VersionProxy.new(version, @user_class)}
         end
 
         def delete_object(object, model, user)
@@ -78,7 +78,8 @@ module RailsAdmin
               sort = :created_at
               sort_reverse = "true"
             end
-            versions = VERSION.where conditions
+            version_klass = defined?(::PaperTrail::Version) ? ::PaperTrail::Version : ::Version
+            versions = version_klass.where conditions
             versions = versions.where("event LIKE ?", "%#{query}%") if query.present?
             versions = versions.order(sort_reverse == "true" ? "#{sort} DESC" : sort)
             versions = all ? versions : versions.send(Kaminari.config.page_method_name, page.presence || "1").per(per_page)
