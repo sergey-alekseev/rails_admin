@@ -33,7 +33,7 @@ group :mongoid do
   gem 'carrierwave-mongoid', '>= 0.4', :require => 'carrierwave/mongoid'
 end
 
-group :development do
+group :development, :test do
   gem 'pry', '>= 0.9'
   gem 'pry-debugger', '>= 0.2', :platforms => :mri_19
 end
@@ -55,6 +55,7 @@ group :test do
   gem 'simplecov', :require => false
   gem 'strong_parameters', '>= 0.1.6'
   gem 'timecop', '>= 0.5'
+  gem 'paper_trail', '>= 3.0.0.rc2'
 end
 
 gemspec
