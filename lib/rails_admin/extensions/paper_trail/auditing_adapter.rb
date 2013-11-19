@@ -37,6 +37,7 @@ module RailsAdmin
           :created_at => :created_at,
           :message => :event
         }
+        VERSION = defined?(::PaperTrail::Version) ? ::PaperTrail::Version : ::Version
 
         def initialize(controller, user_class = User)
           raise "PaperTrail not found" unless defined?(PaperTrail)
