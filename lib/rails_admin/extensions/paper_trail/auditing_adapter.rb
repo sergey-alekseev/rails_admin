@@ -61,11 +61,11 @@ module RailsAdmin
           # do nothing
         end
 
-        def listing_for_model(model, query, sort, sort_reverse, all, page, per_page)
+        def listing_for_model(model, query, sort, sort_reverse, all, page, per_page = nil)
           listing({ :item_type => model.model.name }, query, sort, sort_reverse, all, page, per_page)
         end
 
-        def listing_for_object(model, object, query, sort, sort_reverse, all, page, per_page)
+        def listing_for_object(model, object, query, sort, sort_reverse, all, page, per_page = nil)
           listing({ :item_type => model.model.name, :item_id => object.id }, query, sort, sort_reverse, all, page, per_page)
         end
 
